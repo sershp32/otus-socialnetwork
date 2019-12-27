@@ -6,6 +6,11 @@ services:
     build:
       context: docker/php
     restart: 'no'
+    ports:
+      - 9000:9000
+    environment:
+      PHP_IDE_CONFIG: "remote_host=172.26.0.1"
+      XDEBUG_CONFIG: "serverName=socnet"
     volumes:
       - ./:/var/www/app:cached
 
@@ -18,3 +23,19 @@ services:
       - 443:443
     volumes:
       - ./:/var/www/app:cached
+
+  db:
+    image: mysql:5.7
+    restart: 'no'
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_volume:/var/lib/mysql:cached
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: socnet
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: usr
+
+volumes:
+  mysql_volume:
