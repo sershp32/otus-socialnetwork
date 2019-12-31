@@ -4,33 +4,55 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use App\Form\DTO\RegisterUserDTO;
+use App\Form\RegisterUserType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-final class MainController
+final class MainController extends AbstractController
 {
+    private AuthorizationCheckerInterface $authChecker;
+
+    public function __construct(AuthorizationCheckerInterface $authChecker)
+    {
+        $this->authChecker = $authChecker;
+    }
+
     /**
      * @Route("/", name="index_action")
-     * @Template("index.html.twig")
      */
-    public function indexAction(): array
+    public function indexAction(): Response
     {
-        return [];
+        return $this->render('index.html.twig', []);
     }
 
     /**
      * @Route("/login", name="login_action")
-     * @Template("login.html.twig")
      */
-    public function loginAction(AuthenticationUtils $utils): array
+    public function loginAction(AuthenticationUtils $utils): Response
     {
         $error = $utils->getLastAuthenticationError();
-        $lastUsername = $utils->getLastUsername();
 
-        return [
+        return $this->render('login.html.twig', [
             'error' => $error,
-            'last_username' => $lastUsername
-        ];
+            'last_username' => '',
+        ]);
+    }
+
+    /**
+     * @Route("/register", name="register_action")
+     */
+    public function registerAction(): Response
+    {
+        $dto = new RegisterUserDTO();
+
+        $form = $this->createForm(RegisterUserType::class, $dto);
+
+        return $this->render('register.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

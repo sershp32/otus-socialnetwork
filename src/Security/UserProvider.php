@@ -37,9 +37,6 @@ final class UserProvider implements UserProviderInterface
         return $user; // @todo add checks
     }
 
-    /**
-     * @inheritDoc
-     */
     public function supportsClass(string $class)
     {
         return User::class === $class;

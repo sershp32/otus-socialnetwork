@@ -16,10 +16,10 @@ final class UserRepository
         $this->conn = $conn;
     }
 
-    public function findUserByEmail(string $email): ?User
+    public function findUserByLogin(string $login): ?User
     {
-        $s = $this->conn->prepare('SELECT * FROM users WHERE email = :email');
-        $s->execute(['email' => $email]);
+        $s = $this->conn->prepare('SELECT * FROM users WHERE login = :login');
+        $s->execute(['login' => $login]);
 
         $user = $s->fetch();
 
