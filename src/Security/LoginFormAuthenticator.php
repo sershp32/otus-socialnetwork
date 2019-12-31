@@ -63,9 +63,6 @@ final class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $credentials;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
 //        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
