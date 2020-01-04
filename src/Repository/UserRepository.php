@@ -6,13 +6,10 @@ namespace App\Repository;
 
 use App\Model\User;
 use Doctrine\DBAL\Connection;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class UserRepository
 {
     private Connection $conn;
-
-    private UserPasswordEncoderInterface $encoder;
 
     public function __construct(Connection $conn)
     {

@@ -1,0 +1,3 @@
+composer install
+composer dump-autoload --optimize --no-dev --classmap-authoritative
+php bin/console ca:cl --no-debug --env=prod
