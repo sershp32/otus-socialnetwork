@@ -46,7 +46,7 @@ final class UserManager
         $profile = $this->profile->createFromDto($dto);
 
         $user = $this->user->create([
-            'login' => $dto->login,
+            'login' => $this->conn->quote($dto->login),
             'profile_id' => $profile->getId(),
             'password' => '',
         ]);

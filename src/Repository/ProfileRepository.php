@@ -49,11 +49,11 @@ final class ProfileRepository
     public function createFromDto(RegisterUserDTO $dto): Profile
     {
         $this->conn->insert('profiles', [
-            'first_name' => $dto->firstName,
-            'last_name' => $dto->lastName,
+            'first_name' => $this->conn->quote($dto->firstName),
+            'last_name' => $this->conn->quote($dto->lastName),
             'age' => $dto->age,
-            'interests' => $dto->interests,
-            'city' => $dto->city,
+            'interests' => $this->conn->quote($dto->interests),
+            'city' => $this->conn->quote($dto->city),
         ]);
 
         return new Profile(
