@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Form\DTO\RegisterUserDTO;
 use App\Form\RegisterUserType;
+use App\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +21,17 @@ final class MainController extends AbstractController
 
     private ValidatorInterface $validator;
 
+    private UserManager $manager;
+
     public function __construct(
         AuthorizationCheckerInterface $authChecker,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserManager $manager
     )
     {
         $this->authChecker = $authChecker;
         $this->validator = $validator;
+        $this->manager = $manager;
     }
 
     /**
@@ -56,17 +61,27 @@ final class MainController extends AbstractController
     public function registerAction(Request $request): Response
     {
         $dto = new RegisterUserDTO();
+        $error = null;
 
         $form = $this->createForm(RegisterUserType::class, $dto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $errors = $this->validator->validate($dto);
-            dump($errors);
+
+            if (0 === count($errors)) {
+                try {
+                    $this->manager->createFromDTO($dto);
+                    return $this->redirectToRoute('login_action');
+                } catch (\Exception $e) {
+                    $error = $e->getMessage();
+                }
+            }
         }
 
         return $this->render('register.html.twig', [
             'form' => $form->createView(),
+            'error' => $error,
         ]);
     }
 }

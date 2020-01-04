@@ -6,6 +6,8 @@ namespace App\Model;
 
 final class Profile
 {
+    private int $id;
+
     private string $firstName;
 
     private string $lastName;
@@ -15,6 +17,28 @@ final class Profile
     private string $interests;
 
     private string $city;
+
+    public function __construct(
+        int $id,
+        string $firstName,
+        string $lastName,
+        int $age,
+        string $interests,
+        string $city
+    )
+    {
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->age = $age;
+        $this->interests = $interests;
+        $this->city = $city;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function getFirstName(): string
     {

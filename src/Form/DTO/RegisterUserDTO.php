@@ -28,12 +28,15 @@ final class RegisterUserDTO
      */
     public ?string $lastName = null;
 
-    public ?int $age = null;
-
-    public ?string $interests = null;
-
     /**
      * @Assert\NotBlank
      */
     public ?string $city = null;
+
+    /**
+     * @Assert\NotBlank
+     */
+    public ?int $age = null;
+
+    public ?string $interests = null;
 }

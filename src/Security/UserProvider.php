@@ -25,7 +25,7 @@ final class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername(string $username)
     {
-        if (!$user = $this->rep->findUserByEmail($username)) {
+        if (!$user = $this->rep->findUserByLogin($username)) {
             throw new UsernameNotFoundException;
         }
 

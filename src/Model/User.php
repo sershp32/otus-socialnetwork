@@ -8,14 +8,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class User implements UserInterface
 {
+    private int $id;
+
+    private int $profileId;
+
     private string $login;
 
     private string $password;
 
-    public function __construct(string $login, string $password)
+    public function __construct(int $id, int $profileId, string $login, string $password)
     {
+        $this->id = $id;
+        $this->profileId = $profileId;
         $this->login = $login;
         $this->password = $password;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getProfileId(): int
+    {
+        return $this->profileId;
     }
 
     public function getRoles(): array

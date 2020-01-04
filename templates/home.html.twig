@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Your friends</h1>
+    <h1>Your network</h1>
 
-    list of users goes here
+    <ul>
+        {% for profile in profiles %}
+            <li>{{ profile.first_name }} [<a href="#">View</a>]</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
