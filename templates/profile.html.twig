@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ profile.firstName }} {{ profile.lastName }}</h1>
+
+    <p><strong>Age</strong>: {{ profile.age }}</p>
+    <p><strong>City</strong>: {{ profile.city }}</p>
+    <p><strong>Interests</strong>: {{ profile.interests }}</p>
+
+    <p><a href="{{ path('home_action') }}">Back to home</a></p>
+
+{% endblock %}

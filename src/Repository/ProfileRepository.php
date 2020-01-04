@@ -17,6 +17,27 @@ final class ProfileRepository
         $this->conn = $conn;
     }
 
+    public function find(int $id): ?Profile
+    {
+        $s = $this->conn->prepare('SELECT * FROM profiles WHERE id = :id');
+        $s->execute(['id' => $id]);
+
+        $profile = $s->fetch();
+
+        if (!$profile) {
+            return null;
+        }
+
+        return new Profile(
+            (int)$profile['id'],
+            $profile['first_name'],
+            $profile['last_name'],
+            (int)$profile['age'],
+            $profile['interests'],
+            $profile['city']
+        );
+    }
+
     public function findAll(): array
     {
         $s = $this->conn->prepare('SELECT * FROM profiles');

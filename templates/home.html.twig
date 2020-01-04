@@ -5,7 +5,7 @@
 
     <ul>
         {% for profile in profiles %}
-            <li>{{ profile.first_name }} [<a href="#">View</a>]</li>
+            <li>{{ profile.first_name }} [<a href="{{ path('profile_view_action', {'id':profile.id}) }}">View</a>]</li>
         {% endfor %}
     </ul>
 {% endblock %}
