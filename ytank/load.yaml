@@ -1,0 +1,13 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: 165.22.30.54
+  load_profile:
+    load_type: rps
+    schedule: line(7, 7, 1m)
+  uris:
+    - "/login"
+    - "/register"
+    - "/"

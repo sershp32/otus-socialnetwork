@@ -17,3 +17,6 @@
 
 .idea/
 .env
+ytank/logs
+ytank/tank_errors.log
+ytank/token.txt
