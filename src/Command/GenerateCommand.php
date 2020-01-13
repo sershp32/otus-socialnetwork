@@ -40,7 +40,7 @@ final class GenerateCommand extends Command
 
         for ($i=0; $i<(int)$count; $i++) {
             $name = $faker->firstName;
-            $login = strtolower($name . $faker->numberBetween(10, 90));
+            $login = strtolower($name . $faker->numberBetween(10, 10000000));
             $user = new RegisterUserDTO();
             $user->login = $login;
             $user->password = $login;
