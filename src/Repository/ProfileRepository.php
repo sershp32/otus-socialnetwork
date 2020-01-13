@@ -40,7 +40,7 @@ final class ProfileRepository
 
     public function findAll(): array
     {
-        $s = $this->conn->prepare('SELECT * FROM profiles');
+        $s = $this->conn->prepare('SELECT * FROM profiles LIMIT 50');
         $s->execute();
 
         return $s->fetchAll();
@@ -49,11 +49,11 @@ final class ProfileRepository
     public function createFromDto(RegisterUserDTO $dto): Profile
     {
         $this->conn->insert('profiles', [
-            'first_name' => $this->conn->quote($dto->firstName),
-            'last_name' => $this->conn->quote($dto->lastName),
+            'first_name' => $dto->firstName,
+            'last_name' => $dto->lastName,
             'age' => $dto->age,
-            'interests' => $this->conn->quote($dto->interests),
-            'city' => $this->conn->quote($dto->city),
+            'interests' => $dto->interests,
+            'city' => $dto->city,
         ]);
 
         return new Profile(
