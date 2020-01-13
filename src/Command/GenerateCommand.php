@@ -50,7 +50,6 @@ final class GenerateCommand extends Command
             $user->city = $faker->city;
             $user->interests = $faker->sentence(10, true);
             $this->manager->createFromDTO($user);
-            $io->write('*');
         }
 
         return 0;
