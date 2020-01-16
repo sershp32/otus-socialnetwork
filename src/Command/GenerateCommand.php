@@ -44,14 +44,25 @@ final class GenerateCommand extends Command
             $user = new RegisterUserDTO();
             $user->login = $login;
             $user->password = $login;
-            $user->firstName = $name;
-            $user->lastName = $faker->lastName;
+            $user->firstName = addslashes($name);
+            $user->lastName = addslashes($faker->lastName);
             $user->age = $faker->numberBetween(18, 90);
-            $user->city = $faker->city;
-            $user->interests = $faker->sentence(10, true);
-            $this->manager->createFromDTO($user);
+            $user->city = addslashes($faker->city);
+            $user->interests = addslashes($faker->sentence(10, true));
+            $this->add($user);
         }
 
         return 0;
+    }
+
+    private function add(RegisterUserDTO $user)
+    {
+        $profile = sprintf("INSERT INTO profiles (first_name, last_name, age, interests, city) VALUES ('%s', '%s', %s,'%s', '%s'); \n",
+            $user->firstName, $user->lastName, $user->age, $user->interests, $user->city);
+        file_put_contents('docker/mysql/data.sql', $profile, FILE_APPEND);
+
+        $user = sprintf("INSERT INTO users (login, password, profile_id) VALUES ('%s', '%s', LAST_INSERT_ID()); \n",
+            $user->login, md5($user->password));
+        file_put_contents('docker/mysql/data.sql', $user, FILE_APPEND);
     }
 }
