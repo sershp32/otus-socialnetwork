@@ -72,7 +72,7 @@ final class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 //        }
 
         if (!$user = $this->rep->findUserByLogin($credentials['login'])) {
-            return false;
+            return null;
         }
 
         return $user;
