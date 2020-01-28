@@ -3,9 +3,16 @@
 {% block body %}
     <h1>Your network</h1>
 
-    <ul>
-        {% for profile in profiles %}
-            <li>{{ profile.first_name }} {{ profile.last_name }} {{ profile.age }} [<a href="{{ path('profile_view_action', {'id':profile.id}) }}">View</a>]</li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col">
+            <p>Recently registered users:</p>
+            <ul>
+                {% for profile in profiles %}
+                    <li>{{ profile.first_name }} {{ profile.last_name }} {{ profile.age }} [<a href="{{ path('profile_view_action', {'id':profile.id}) }}">View</a>]</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col">
+        </div>
+    </div>
 {% endblock %}

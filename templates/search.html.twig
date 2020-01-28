@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Search</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+{#            {% if error %}#}
+{#                <div class="alert alert-danger">{{ error }}</div>#}
+{#            {% endif %}#}
+
+            {{ form(form) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {% for profile in result %}
+                <p>{{ profile.first_name }} {{ profile.last_name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

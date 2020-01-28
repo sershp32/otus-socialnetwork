@@ -46,6 +46,17 @@ final class ProfileRepository
         return $s->fetchAll();
     }
 
+    public function findByName(string $firstname, string $lastname): array
+    {
+        $s = $this->conn->prepare('SELECT * FROM profiles WHERE first_name LIKE :first OR last_name LIKE :last LIMIT 50');
+        $s->execute([
+            'first' => $firstname . '%',
+            'last' => $lastname . '%',
+        ]);
+
+        return $s->fetchAll();
+    }
+
     public function createFromDto(RegisterUserDTO $dto): Profile
     {
         $this->conn->insert('profiles', [
