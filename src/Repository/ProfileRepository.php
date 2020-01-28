@@ -48,7 +48,7 @@ final class ProfileRepository
 
     public function findByName(string $firstname, string $lastname): array
     {
-        $s = $this->conn->prepare('SELECT * FROM profiles WHERE first_name LIKE :first OR last_name LIKE :last LIMIT 50');
+        $s = $this->conn->prepare('SELECT * FROM profiles WHERE first_name LIKE :first OR last_name LIKE :last ORDER BY id ASC LIMIT 50');
         $s->execute([
             'first' => $firstname . '%',
             'last' => $lastname . '%',
