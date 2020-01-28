@@ -19,8 +19,6 @@ services:
       - app
     ports:
       - 80:80
-    volumes:
-      - ./:/var/www/app
 
   db:
     image: mysql:5.7
