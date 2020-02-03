@@ -21,3 +21,4 @@ ytank/logs
 ytank/tank_errors.log
 ytank/token.txt
 wrk_test
+wrk.lua
