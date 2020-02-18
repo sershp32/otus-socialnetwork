@@ -22,13 +22,32 @@ services:
       - 80:80
       - 443:443
 
-  db:
+  db-master:
     image: mysql:5.7
     restart: 'no'
     ports:
       - 3306:3306
     volumes:
       - mysql_volume:/var/lib/mysql:cached
+      - ./docker/mysql/master/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./docker/mysql:/var/data
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: socnet
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: usr
+
+  db-slave:
+    image: mysql:5.7
+    restart: 'no'
+    ports:
+      - 3307:3306
+    links:
+      - db-master
+    volumes:
+      - mysql_slave:/var/lib/mysql:cached
+      - ./docker/mysql/slave/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./docker/mysql:/var/data
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: socnet
@@ -37,3 +56,4 @@ services:
 
 volumes:
   mysql_volume:
+  mysql_slave:

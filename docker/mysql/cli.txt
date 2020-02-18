@@ -1,0 +1,4 @@
+GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'slave_user_psw';
+FLUSH PRIVILEGES;
+
+change master to master_host='db-master', master_user='slave_user', master_password='slave_user_psw', master_log_file='mysql-bin.000001', master_log_pos=787';
