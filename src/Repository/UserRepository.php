@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\DBAL\SlaveConnection;
 use App\Model\User;
 use Doctrine\DBAL\Connection;
 
@@ -12,9 +11,9 @@ final class UserRepository
 {
     private Connection $conn;
 
-    private SlaveConnection $slaveConn;
+    private Connection $slaveConn;
 
-    public function __construct(Connection $conn, SlaveConnection $slaveConn)
+    public function __construct(Connection $conn, Connection $slaveConn)
     {
         $this->conn = $conn;
         $this->slaveConn = $slaveConn;

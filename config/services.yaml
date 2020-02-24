@@ -10,6 +10,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $slaveConn: '@doctrine.dbal.slave_connection'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -22,11 +24,3 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-
-    App\DBAL\SlaveConnection:
-        factory: Doctrine\DBAL\DriverManager::getConnection
-        arguments:
-            $params:
-                driver: pdo_mysql
-                url: '%env(DATABASE_URL_SLAVE)%'
-                charset: UTF8

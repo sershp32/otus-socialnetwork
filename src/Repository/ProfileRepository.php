@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\DBAL\SlaveConnection;
 use App\Form\DTO\RegisterUserDTO;
 use App\Model\Profile;
 use Doctrine\DBAL\Connection;
@@ -13,9 +12,9 @@ final class ProfileRepository
 {
     private Connection $conn;
 
-    private SlaveConnection $slaveConn;
+    private Connection $slaveConn;
 
-    public function __construct(Connection $conn, SlaveConnection $slaveConn)
+    public function __construct(Connection $conn, Connection $slaveConn)
     {
         $this->conn = $conn;
         $this->slaveConn = $slaveConn;
