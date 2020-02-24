@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\DBAL\SlaveConnection;
 use App\Model\User;
 use Doctrine\DBAL\Connection;
 
@@ -11,14 +12,17 @@ final class UserRepository
 {
     private Connection $conn;
 
-    public function __construct(Connection $conn)
+    private SlaveConnection $slaveConn;
+
+    public function __construct(Connection $conn, SlaveConnection $slaveConn)
     {
         $this->conn = $conn;
+        $this->slaveConn = $slaveConn;
     }
 
     public function findUserByLogin(string $login): ?User
     {
-        $s = $this->conn->prepare('SELECT * FROM users WHERE login = :login');
+        $s = $this->slaveConn->prepare('SELECT * FROM users WHERE login = :login');
         $s->execute(['login' => $login]);
 
         $user = $s->fetch();
